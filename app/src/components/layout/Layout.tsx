@@ -28,6 +28,8 @@ import {
 } from '@/components/easter-eggs';
 import { useHiddenAchievementsStore } from '@/store/use-hidden-achievements-store';
 import { logEasterEggMessage } from '@/store/use-hidden-achievements-store';
+import { RealtimeNotifications } from '@/components/RealtimeNotifications';
+import { OnlineUsersBadge } from '@/components/OnlineUsers';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -225,34 +227,42 @@ export function Layout({ children }: LayoutProps) {
                         <div className="hidden md:block" />
 
                         {/* User Profile Info */}
-                        <NavLink
-                            to="/settings"
-                            className="flex items-center gap-3 pl-3 pr-1 py-1 rounded-full hover:bg-foreground/5 transition-all border border-transparent hover:border-border/20 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            aria-label={`Configurações da conta de ${userProfile.name}`}
-                        >
-                            <div className="hidden sm:flex flex-col items-end">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">
-                                    {userProfile.name}
-                                </span>
-                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-tight">
-                                    Elite Member
-                                </span>
-                            </div>
-                            <div
-                                className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/20 group-hover:border-primary/50 transition-all shadow-[0_0_15px_rgba(37,99,235,0.05)]"
-                                aria-hidden="true"
+                        <div className="flex items-center gap-3">
+                            {/* Online Users Badge */}
+                            <OnlineUsersBadge />
+
+                            {/* Realtime Notifications */}
+                            <RealtimeNotifications />
+
+                            <NavLink
+                                to="/settings"
+                                className="flex items-center gap-3 pl-3 pr-1 py-1 rounded-full hover:bg-foreground/5 transition-all border border-transparent hover:border-border/20 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                aria-label={`Configurações da conta de ${userProfile.name}`}
                             >
-                                {userProfile.avatar ? (
-                                    <img
-                                        src={userProfile.avatar}
-                                        alt=""
-                                        className="h-full w-full object-cover"
-                                    />
-                                ) : (
-                                    <User className="h-4 w-4 text-primary" />
-                                )}
-                            </div>
-                        </NavLink>
+                                <div className="hidden sm:flex flex-col items-end">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-foreground group-hover:text-primary transition-colors">
+                                        {userProfile.name}
+                                    </span>
+                                    <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-tight">
+                                        Elite Member
+                                    </span>
+                                </div>
+                                <div
+                                    className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/20 group-hover:border-primary/50 transition-all shadow-[0_0_15px_rgba(37,99,235,0.05)]"
+                                    aria-hidden="true"
+                                >
+                                    {userProfile.avatar ? (
+                                        <img
+                                            src={userProfile.avatar}
+                                            alt=""
+                                            className="h-full w-full object-cover"
+                                        />
+                                    ) : (
+                                        <User className="h-4 w-4 text-primary" />
+                                    )}
+                                </div>
+                            </NavLink>
+                        </div>
                     </div>
                 </header>
 
