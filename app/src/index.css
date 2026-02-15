@@ -1,0 +1,716 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 224 71% 2%;
+        --foreground: 213 31% 98%;
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 84% 4.9%;
+        --primary: 217.2 91.2% 59.8%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 222.2 47.4% 11.2%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --accent: 38 92% 50%;
+        --accent-foreground: 222.2 47.4% 11.2%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 217.2 91.2% 59.8%;
+        --radius: 0.5rem;
+    }
+
+    :root[data-theme='cyber-luxe'],
+    .dark {
+        --background: 224 71% 2%;
+        --foreground: 213 31% 98%;
+        --card: 224 71% 3%;
+        --card-foreground: 213 31% 98%;
+        --popover: 224 71% 3%;
+        --popover-foreground: 213 31% 98%;
+        --primary: 210 100% 60%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 222.2 47.4% 15%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 223 47% 8%;
+        --muted-foreground: 215.4 16.3% 80%;
+        /* Brightened from 65% for better readability */
+        --accent: 216 34% 25%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 216 34% 20%;
+        --input: 216 34% 20%;
+        --ring: 210 100% 60%;
+        --glass-bg: rgba(15, 23, 42, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --shadow-color: rgba(0, 0, 0, 0.37);
+    }
+
+    :root[data-theme='pistachio'] {
+        --background: 140 33% 97%;
+        /* Soft nature cream background */
+        --foreground: 145 30% 12%;
+        /* Even deeper forest green for better contrast */
+        --card: 140 33% 98%;
+        --card-foreground: 145 30% 12%;
+        --popover: 140 33% 98%;
+        --popover-foreground: 145 30% 12%;
+        --primary: 142 45% 40%;
+        /* Darker Pistachio green */
+        --primary-foreground: 140 33% 98%;
+        --secondary: 140 30% 88%;
+        --secondary-foreground: 145 30% 15%;
+        --muted: 140 25% 85%;
+        --muted-foreground: 145 20% 35%;
+        /* Darker muted text */
+        --accent: 142 40% 60%;
+        --accent-foreground: 145 30% 12%;
+        --destructive: 0 84.2% 50%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 140 20% 82%;
+        --input: 140 20% 82%;
+        --ring: 142 45% 40%;
+        --radius: 0.75rem;
+        --glass-bg: rgba(255, 255, 255, 0.75);
+        --glass-border: rgba(142, 255, 144, 0.15);
+        /* Nature green shadow */
+    }
+
+    :root[data-theme='material-light'] {
+        --background: 0 0% 98%;
+        --foreground: 222 47% 11%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+        --primary: 262 50% 50%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222 47% 11.2%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --accent: 262 50% 90%;
+        --accent-foreground: 222 47% 11.2%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 262 50% 50%;
+        --radius: 1rem;
+        --glass-bg: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(0, 0, 0, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.05);
+    }
+
+    :root[data-theme='material-dark'] {
+        --background: 220 15% 7%;
+        --foreground: 210 40% 98%;
+        --card: 220 15% 10%;
+        --card-foreground: 210 40% 98%;
+        --popover: 220 15% 10%;
+        --popover-foreground: 210 40% 98%;
+        --primary: 217 90% 80%;
+        --primary-foreground: 222 47% 11%;
+        --secondary: 217 30% 18%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217 30% 18%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --accent: 262 60% 75%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217 30% 18%;
+        --input: 217 30% 18%;
+        --ring: 217 90% 80%;
+        --radius: 1.5rem;
+        --glass-bg: rgba(15, 23, 42, 0.85);
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+
+@layer base {
+    * {
+        @apply border-border/50;
+    }
+
+    body {
+        @apply bg-background text-foreground transition-colors duration-500;
+        font-family: 'Inter', system-ui, sans-serif;
+        background-image: var(--bg-gradient);
+        background-attachment: fixed;
+    }
+
+    :root[data-theme='cyber-luxe'] body {
+        --bg-gradient:
+            radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 1) 0px, rgba(2, 6, 23, 0.8) 100%);
+    }
+
+    :root[data-theme='pistachio'] body {
+        --bg-gradient:
+            radial-gradient(circle at 0% 0%, rgba(147, 197, 114, 0.15) 0px, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(167, 243, 208, 0.1) 0px, transparent 50%),
+            radial-gradient(circle at 50% 50%, #f0f7f4 0px, #e8f5e9 100%);
+    }
+
+    :root[data-theme='material-light'] body {
+        --bg-gradient:
+            radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
+            radial-gradient(circle at 50% 50%, #ffffff 0px, #f8fafc 100%);
+    }
+
+    :root[data-theme='material-dark'] body {
+        --bg-gradient:
+            radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.1) 0px, transparent 50%),
+            radial-gradient(circle at 50% 50%, #0f172a 0px, #020617 100%);
+    }
+}
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Timer display font */
+.timer-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* Animation for active timer */
+@keyframes timer-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.timer-active {
+    animation: timer-pulse 2s ease-in-out infinite;
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+}
+
+.glass-card-hover {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+    background: var(--foreground);
+    border: 1px solid var(--border);
+    opacity: 0.1;
+    box-shadow: 0 0 40px var(--primary);
+    transform: translateY(-2px);
+}
+
+.emerald-glow-text {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+.gold-glow-text {
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+}
+
+.blue-glow-button {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+.blue-glow-button:hover {
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
+}
+
+/* Priority colors */
+.priority-alta {
+    @apply text-red-400 bg-red-400/10 border border-red-400/20;
+}
+
+.priority-media {
+    @apply text-yellow-400 bg-yellow-400/10 border border-yellow-400/20;
+}
+
+.priority-baixa {
+    @apply text-emerald-400 bg-emerald-400/10 border border-emerald-400/20;
+}
+
+/* Status colors */
+.status-nao_iniciado {
+    @apply bg-slate-800 text-slate-400 border border-slate-700;
+}
+
+.status-em_progresso {
+    @apply bg-blue-400/10 text-blue-400 border border-blue-400/20;
+}
+
+.status-dominado {
+    @apply bg-emerald-400/10 text-emerald-400 border border-emerald-400/20;
+}
+
+/* Category styles */
+.category-card {
+    @apply glass-card relative overflow-hidden;
+}
+
+.category-indicator {
+    @apply absolute top-0 left-0 w-1 h-full;
+}
+
+.category-gramatica .category-indicator {
+    @apply bg-blue-500 shadow-[0_0_10px_#3b82f680];
+}
+
+.category-interpretacao .category-indicator {
+    @apply bg-purple-500 shadow-[0_0_10px_#a855f780];
+}
+
+.category-redacao .category-indicator {
+    @apply bg-orange-500 shadow-[0_0_10px_#f9731680];
+}
+
+.category-vocabulario .category-indicator {
+    @apply bg-emerald-500 shadow-[0_0_10px_#10b98180];
+}
+
+.category-literatura .category-indicator {
+    @apply bg-pink-500 shadow-[0_0_10px_#ec489980];
+}
+
+.category-outro .category-indicator {
+    @apply bg-slate-500 shadow-[0_0_10px_#64748b80];
+}
+
+/* Settings Accessibility Classes */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+.high-contrast {
+    --contrast-multiplier: 1.5;
+}
+
+.high-contrast .text-muted-foreground {
+    color: #000 !important;
+}
+
+.high-contrast .text-foreground {
+    color: #000 !important;
+}
+
+.high-contrast .bg-background {
+    background-color: #fff !important;
+}
+
+.high-contrast .bg-card {
+    background-color: #f0f0f0 !important;
+    border: 2px solid #000 !important;
+}
+
+.compact-mode .space-y-6> :not([hidden])~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.compact-mode .p-6 {
+    padding: 0.75rem;
+}
+
+.compact-mode .p-4 {
+    padding: 0.5rem;
+}
+
+.compact-mode .gap-4 {
+    gap: 0.5rem;
+}
+
+/* ========================================
+   WCAG 2.1 Accessibility Improvements
+   ======================================== */
+
+/* Focus Visible Styles - WCAG 2.4.7 */
+@layer base {
+
+    /* Global focus visible styles */
+    :focus-visible {
+        outline: 2px solid hsl(var(--ring));
+        outline-offset: 2px;
+    }
+
+    /* Remove default outline when using focus-visible */
+    :focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    /* Enhanced focus for interactive elements */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+        outline: 2px solid hsl(var(--primary));
+        outline-offset: 2px;
+        box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+    }
+
+    /* High contrast focus for better visibility */
+    .focus-visible\:ring-4:focus-visible {
+        ring-width: 4px;
+    }
+}
+
+/* Screen Reader Only - Visually Hidden */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Skip Link Styles */
+.skip-links-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+/* Minimum Touch Target Size - WCAG 2.5.5 */
+@layer base {
+
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    a,
+    [tabindex] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Exception for inline elements */
+    p button,
+    p a,
+    span button,
+    span a {
+        min-height: auto;
+        min-width: auto;
+    }
+}
+
+/* Color Contrast Improvements - WCAG 1.4.3 */
+@layer base {
+
+    /* Ensure minimum contrast ratio of 4.5:1 for normal text */
+    .text-muted-foreground {
+        color: hsl(var(--muted-foreground));
+        /* Ensure minimum lightness for contrast */
+    }
+
+    /* High contrast text for important content */
+    .text-high-contrast {
+        color: hsl(var(--foreground));
+    }
+
+    /* Ensure form labels have sufficient contrast */
+    label {
+        color: hsl(var(--foreground) / 0.9);
+    }
+}
+
+/* Reduced Motion - WCAG 2.3.3 */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .timer-active {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode Support - WCAG 1.4.6 */
+@media (prefers-contrast: high) {
+    :root {
+        --muted-foreground: 215 16.3% 30%;
+    }
+
+    .glass-card {
+        background: hsl(var(--card));
+        border: 2px solid hsl(var(--border));
+    }
+
+    .text-muted-foreground {
+        color: hsl(var(--foreground) / 0.8);
+    }
+}
+
+/* Forced Colors Mode (Windows High Contrast) */
+@media (forced-colors: active) {
+    .glass-card {
+        background: Canvas;
+        border: 1px solid CanvasText;
+    }
+
+    button,
+    a {
+        border: 1px solid currentColor;
+    }
+
+    .text-primary,
+    .text-muted-foreground {
+        color: CanvasText;
+    }
+}
+
+/* Focus Not Obscured - WCAG 2.4.11 */
+@layer base {
+
+    /* Ensure sticky headers don't obscure focused elements */
+    *:focus-visible {
+        scroll-margin-top: 80px;
+        /* Account for fixed header */
+    }
+}
+
+/* Accessible Animations */
+@keyframes accessible-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.animate-accessible-pulse {
+    animation: accessible-pulse 2s ease-in-out infinite;
+}
+
+/* Accessible Loading States */
+.loading-skeleton {
+    background: linear-gradient(90deg,
+            hsl(var(--muted)) 25%,
+            hsl(var(--muted) / 0.5) 50%,
+            hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Accessible Error States */
+.error-outline {
+    outline: 2px solid hsl(var(--destructive));
+    outline-offset: 2px;
+}
+
+.error-text {
+    color: hsl(var(--destructive));
+    font-weight: 500;
+}
+
+/* Accessible Success States */
+.success-outline {
+    outline: 2px solid hsl(142 76% 36%);
+    outline-offset: 2px;
+}
+
+.success-text {
+    color: hsl(142 76% 36%);
+    font-weight: 500;
+}
+
+/* Live Region Styles */
+[role="status"],
+[role="alert"],
+[role="log"] {
+    /* Ensure live regions are properly styled but can be hidden */
+}
+
+/* Accessible Table Styles */
+table {
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Accessible Form Styles */
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Required field indicator */
+.required::after {
+    content: " *";
+    color: hsl(var(--destructive));
+}
+
+/* Accessible Description Styles */
+[aria-describedby] {
+    /* Ensure described elements have proper styling */
+}
+
+.field-description {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    margin-top: 0.25rem;
+}
+
+/* Accessible Error Message Styles */
+.field-error {
+    font-size: 0.875rem;
+    color: hsl(var(--destructive));
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Accessible Keyboard Navigation Indicators */
+[role="tablist"] {
+    display: flex;
+    gap: 0.25rem;
+}
+
+[role="tab"] {
+    cursor: pointer;
+}
+
+[role="tab"][aria-selected="true"] {
+    font-weight: 600;
+}
+
+/* Accessible Menu Styles */
+[role="menu"] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+[role="menuitem"] {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+[role="menuitem"]:focus-visible {
+    background: hsl(var(--accent));
+    outline: none;
+}
+
+/* Accessible Dialog/Modal Styles */
+[role="dialog"] {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[aria-modal="true"] {
+    /* Ensure modal is properly contained */
+}
+
+/* Accessible Tooltip Styles */
+[role="tooltip"] {
+    position: absolute;
+    z-index: 50;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    background: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}

@@ -1,0 +1,341 @@
+# Estudos Tracker - Sprint Planning
+
+**Projeto:** Estudos Tracker  
+**Data:** 2026-02-14  
+**Versão:** 1.0  
+**Idioma:** Português Brasil
+
+---
+
+## 1. Visão Geral do Planejamento
+
+### 1.1 Objetivo
+Criar plano de sprints para a Fase 4 (Implementação) do MVP do Estudos Tracker.
+
+### 1.2 Escopo do MVP
+- **Total de User Stories:** 24
+- **Total de Pontos de História:** 47
+- **Tecnologia:** React + shadcn/ui + Tailwind CSS + PWA + Zustand + TypeScript
+- **Armazenamento:** Local Storage (MVP)
+
+---
+
+## 2. Estratégia de Sequenciamento
+
+### 2.1 Dependências entre Épicos
+
+```
+Epic 1 (Gestão de Matérias) - 6 pts
+    ↓
+Epic 2 (Registro de Tempo) - 8 pts
+    ↓                       ↘
+Epic 3 (Progresso) - 6 pts     ↘
+    ↓                            ↘
+Epic 5 (Gamificação) - 10 pts   ↘
+    ↓                            ↘
+Epic 4 (Plano de Estudos) - 12 pts
+    ↓
+Epic 6 (Dashboard) - 5 pts
+```
+
+### 2.2 Princípios de Sequenciamento
+
+1. **Foundation First:** Epic 1 (Gestão de Matérias) deve ser implementado primeiro, pois é a base para todas as outras funcionalidades.
+
+2. **Core Features Early:** Epic 2 (Registro de Tempo) e Epic 3 (Progresso) são funcionalidades core que justificam o uso do app.
+
+3. **Engagement Next:** Epic 5 (Gamificação) é implementado antes do Epic 4 (Plano de Estudos) para manter o usuário engajado antes de adicionar a complexidade do planejamento.
+
+4. **Dashboard Last:** Epic 6 (Dashboard) é implementado por último, pois depende dos dados gerados pelos épicos anteriores.
+
+5. **Parallel Opportunities:** Epic 3 (Progresso) pode iniciar em paralelo com Epic 2 após a US-007 (Pausar/Salvar).
+
+---
+
+## 3. Matriz de Dependências entre User Stories
+
+### 3.1 Epic 1: Gestão de Matérias
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-001 | Criar Novo Tópico | Nenhuma | 2 |
+| US-002 | Categorizar Tópicos | US-001 | 1 |
+| US-003 | Definir Prioridade | US-001 | 1 |
+| US-004 | Editar Tópico | US-001 | 1 |
+| US-005 | Excluir Tópico | US-001 | 1 |
+
+### 3.2 Epic 2: Registro de Tempo
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-006 | Iniciar Cronômetro | Epic 1 completo | 3 |
+| US-007 | Pausar e Salvar | US-006 | 2 |
+| US-008 | Histórico de Sessões | US-007 | 2 |
+| US-009 | Calcular Total de Horas | US-007, US-008 | 1 |
+
+### 3.3 Epic 3: Progresso
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-010 | Calcular Progresso Percentual | Epic 2 completo | 2 |
+| US-011 | Definir Status de Domínio | US-010 | 1 |
+| US-012 | Visualizar Evolução | US-010 | 3 |
+
+### 3.4 Epic 4: Plano de Estudos
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-013 | Criar Cronograma Semanal | Epic 1 completo | 5 |
+| US-014 | Definir Metas Diárias | US-013 | 2 |
+| US-015 | Configurar Lembretes | US-013 | 3 |
+| US-016 | Acompanhar Adesão | US-014 | 2 |
+
+### 3.5 Epic 5: Gamificação
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-017 | Acumular Pontos | Epic 2 completo | 2 |
+| US-018 | Manter Sequência (Streak) | US-017 | 3 |
+| US-019 | Desbloquear Conquistas | US-018 | 3 |
+| US-020 | Progressão de Níveis | US-017 | 2 |
+
+### 3.6 Epic 6: Dashboard
+| US | Título | Dependências | Pontos |
+|----|--------|--------------|--------|
+| US-021 | Total de Horas | Epic 2 completo | 1 |
+| US-022 | Ver Progresso Geral | Epic 3 completo | 2 |
+| US-023 | Listar Matérias Mais Estudadas | US-009 | 1 |
+| US-024 | Exibir Streak Atual | US-018 | 1 |
+
+---
+
+## 4. Plano de Sprints
+
+### 4.1 Sprint 1: Foundation (Semana 1-2)
+
+**Objetivo:** Estabelecer a base do aplicativo com Gestão de Matérias e início do Registro de Tempo.
+
+**Duração:** 2 semanas  
+**Capacidade Sugerida:** 13 pontos
+
+| US | Título | Pontos | Responsável |
+|----|--------|--------|--------------|
+| US-001 | Criar Novo Tópico | 2 | Dev |
+| US-002 | Categorizar Tópicos | 1 | Dev |
+| US-003 | Definir Prioridade | 1 | Dev |
+| US-004 | Editar Tópico | 1 | Dev |
+| US-005 | Excluir Tópico | 1 | Dev |
+| US-006 | Iniciar Cronômetro | 3 | Dev |
+| US-007 | Pausar e Salvar | 2 | Dev |
+
+**Total:** 11 pontos (margem de 2 pontos para ajustes)
+
+**Critérios de Ready:**
+- [ ] Tipos TypeScript definidos
+- [ ] Stores Zustand criadas
+- [ ] Componentes UI shadcn/ui instalados
+- [ ] Layout base implementado
+
+**Critérios de Done:**
+- [ ] CRUD de tópicos funcional
+- [ ] Cronômetro inicia, pausa e salva
+- [ ] Dados persistidos no Local Storage
+- [ ] Interface responsiva
+
+---
+
+### 4.2 Sprint 2: Core Features (Semana 3-4)
+
+**Objetivo:** Completar Registro de Tempo e implementar Acompanhamento de Progresso.
+
+**Duração:** 2 semanas  
+**Capacidade Sugerida:** 11 pontos
+
+| US | Título | Pontos | Responsável |
+|----|--------|--------|--------------|
+| US-008 | Histórico de Sessões | 2 | Dev |
+| US-009 | Calcular Total de Horas | 1 | Dev |
+| US-010 | Calcular Progresso Percentual | 2 | Dev |
+| US-011 | Definir Status de Domínio | 1 | Dev |
+| US-012 | Visualizar Evolução | 3 | Dev |
+| US-021 | Total de Horas (Dashboard) | 1 | Dev |
+
+**Total:** 10 pontos (margem de 1 ponto)
+
+**Critérios de Done:**
+- [ ] Histórico de sessões visível e filtrável
+- [ ] Total de horas calculado por matéria
+- [ ] Progresso percentual exibido
+- [ ] Status de domínio configurável
+- [ ] Gráfico de evolução histórica
+
+---
+
+### 4.3 Sprint 3: Engagement (Semana 5-6)
+
+**Objetivo:** Implementar sistema de Gamificação para engajar o usuário.
+
+**Duração:** 2 semanas  
+**Capacidade Sugerida:** 10 pontos
+
+| US | Título | Pontos | Responsável |
+|----|--------|--------|--------------|
+| US-017 | Acumular Pontos | 2 | Dev |
+| US-018 | Manter Sequência (Streak) | 3 | Dev |
+| US-019 | Desbloquear Conquistas | 3 | Dev |
+| US-020 | Progressão de Níveis | 2 | Dev |
+
+**Total:** 10 pontos
+
+**Critérios de Done:**
+- [ ] Sistema de pontos funcionando
+- [ ] Streak calculado e exibido
+- [ ] Conquistas desbloqueáveis
+- [ ] Níveis progressivos
+- [ ] Animações de feedback
+
+---
+
+### 4.4 Sprint 4: Planning (Semana 7-8)
+
+**Objetivo:** Implementar Plano de Estudos para estruturar a rotina do usuário.
+
+**Duração:** 2 semanas  
+**Capacidade Sugerida:** 12 pontos
+
+| US | Título | Pontos | Responsável |
+|----|--------|--------|--------------|
+| US-013 | Criar Cronograma Semanal | 5 | Dev |
+| US-014 | Definir Metas Diárias | 2 | Dev |
+| US-015 | Configurar Lembretes | 3 | Dev |
+| US-016 | Acompanhar Adesão | 2 | Dev |
+
+**Total:** 12 pontos
+
+**Critérios de Done:**
+- [ ] Calendário semanal funcional
+- [ ] Metas diárias configuráveis
+- [ ] Lembretes via Push API
+- [ ] Taxa de adesão calculada
+
+---
+
+### 4.5 Sprint 5: Polish (Semana 9-10)
+
+**Objetivo:** Completar Dashboard final e polir a experiência do usuário.
+
+**Duração:** 2 semanas  
+**Capacidade Sugerida:** 8 pontos
+
+| US | Título | Pontos | Responsável |
+|----|--------|--------|--------------|
+| US-022 | Ver Progresso Geral | 2 | Dev |
+| US-023 | Listar Matérias Mais Estudadas | 1 | Dev |
+| US-024 | Exibir Streak Atual | 1 | Dev |
+| - | Ajustes e Bugs | 2 | Dev |
+| - | PWA Finalização | 2 | Dev |
+
+**Total:** 8 pontos
+
+**Critérios de Done:**
+- [ ] Dashboard completo
+- [ ] Visualizações finais
+- [ ] Bugs corrigidos
+- [ ] PWA funcional (manifest + service worker)
+- [ ] Testes básicos
+
+---
+
+## 5. Quadro Resumo
+
+| Sprint | Nome | Semanas | Pontos | Status |
+|--------|------|---------|--------|--------|
+| 1 | Foundation | 1-2 | 11 | Concluído |
+| 2 | Core Features | 3-4 | 10 | Concluído |
+| 3 | Engagement | 5-6 | 10 | Concluído |
+| 4 | Planning | 7-8 | 12 | Pendente |
+| 5 | Polish | 9-10 | 8 | Pendente |
+| **Total** | **MVP** | **10 semanas** | **51** | - |
+
+---
+
+## 6. Critérios de Priorização
+
+### 6.1 Prioridade de MVP
+O MVP deve entregar um produto utilizável com:
+1. **Epic 1 (Gestão de Matérias)** - Essencial
+2. **Epic 2 (Registro de Tempo)** - Essencial
+3. **Epic 3 (Progresso)** - Essencial
+4. **Epic 5 (Gamificação)** - Importante para engajamento
+5. **Epic 6 (Dashboard)** - Visualização
+6. **Epic 4 (Plano de Estudos)** - Complexo, pode ser refinado
+
+### 6.2 Critérios de Corte (Se necessário)
+Se houver necessidade de reduzir escopo:
+- Adiar Epic 4 completo (manter apenas US-013)
+- Adiar US-012 (Evolução Histórica) - usar gráficos simples
+- Adiar US-015 (Lembretes Push) - usar notificação local
+
+---
+
+## 7. Riscos e Mitigações
+
+| Risco | Probabilidade | Impacto | Mitigação |
+|-------|---------------|---------|------------|
+| Estimativas imprecisas | Alta | Médio | Margem em cada sprint |
+| Complexidade técnica (PWA) | Média | Alto | Sprint dedicado no final |
+| Dependências entre US | Média | Médio | Paralelização onde possível |
+| Mudanças de requisitos | Baixa | Alto | Freeze de requisitos antes do sprint |
+
+---
+
+## 8. Definition of Ready (DoR)
+
+Para uma User Story estar pronta para o sprint:
+- [ ] Critérios de aceitação definidos
+- [ ] Estimativa atribuída
+- [ ] Dependências resolvidas
+- [ ] Design/componente especificado (se aplicável)
+- [ ] Testes unitários planejados
+
+---
+
+## 9. Definition of Done (DoD)
+
+Para uma User Story ser considerada completa:
+- [ ] Código implementado
+- [ ] Critérios de aceitação atendidos
+- [ ] Code review aprovado
+- [ ] Testes unitários passando
+- [ ] Testes de integração (se aplicável)
+- [ ] Documentação atualizada
+
+---
+
+## 10. Próximos Passos
+
+1. **Antes do Sprint 1:**
+   - Setup do projeto React + Vite + TypeScript
+   - Instalação do shadcn/ui e Tailwind
+   - Configuração do Zustand com persistência
+
+2. **Durante Sprint 1:**
+   - Daily standups (15 min)
+   - Implementar Epic 1 completo
+   - Iniciar Epic 2 (US-006, US-007)
+
+3. **Após Sprint 1:**
+   - Review e retrospective
+   - Planning do Sprint 2
+
+---
+
+## Referências
+
+| Documento | Caminho |
+|-----------|---------|
+| PRD | `docs/PRD.md` |
+| Epic Breakdown | `docs/epic-story-breakdown.md` |
+| Arquitetura | `docs/architecture.md` |
+| UX Design | `docs/ux-design-specification.md` |
+
+---
+
+**Criado através do BMad Method - Scrum Master Workflow**
+
+_Data: 2026-02-14_

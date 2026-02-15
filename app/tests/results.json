@@ -1,0 +1,45 @@
+[
+  {
+    "section": "account",
+    "setting": "Profile Data Presence",
+    "status": "PASS",
+    "duration": 10,
+    "observation": "User: Usuário"
+  },
+  {
+    "section": "privacy",
+    "setting": "toggle-perfil-público",
+    "status": "PASS",
+    "duration": 700
+  },
+  {
+    "section": "privacy",
+    "setting": "toggle-compartilhar-progresso",
+    "status": "PASS",
+    "duration": 783
+  },
+  {
+    "section": "personalization",
+    "setting": "Theme Switch (Pistachio)",
+    "status": "PASS",
+    "duration": 697
+  },
+  {
+    "section": "personalization",
+    "setting": "Compact Mode Toggle",
+    "status": "PASS",
+    "duration": 880
+  },
+  {
+    "section": "data",
+    "setting": "Cloud Backup",
+    "status": "PASS",
+    "duration": 2555
+  },
+  {
+    "section": "accessibility",
+    "setting": "High Contrast Mode",
+    "status": "PASS",
+    "duration": 666
+  }
+]

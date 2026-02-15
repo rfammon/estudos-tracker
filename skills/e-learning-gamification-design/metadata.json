@@ -1,0 +1,45 @@
+{
+    "name": "e-learning-gamification-design",
+    "version": "1.0.0",
+    "description": "Comprehensive skill for designing and implementing effective e-learning experiences with gamification elements. Covers instructional design methodologies, gamification mechanics, UX patterns for learning, and success metrics.",
+    "author": "Estudos Tracker Team",
+    "date": "February 2026",
+    "tags": [
+        "e-learning",
+        "gamification",
+        "instructional-design",
+        "ux-design",
+        "educational-technology",
+        "learning-management",
+        "engagement",
+        "accessibility",
+        "metrics",
+        "addie",
+        "sam",
+        "motivation",
+        "cognitive-load"
+    ],
+    "dependencies": [],
+    "triggers": [
+        "designing e-learning courses",
+        "creating learning platforms",
+        "implementing gamification",
+        "improving learner engagement",
+        "building assessment systems",
+        "learning analytics",
+        "educational accessibility",
+        "training system design"
+    ],
+    "references": [
+        "docs/e-learning-gamification-synthesis-report.md",
+        "docs/e-learning-gamification-best-practices.md"
+    ],
+    "categories": [
+        "instructional-design",
+        "user-experience",
+        "gamification",
+        "metrics"
+    ],
+    "complexity": "intermediate",
+    "estimatedApplicationTime": "30-60 minutes for initial design guidance"
+}

@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudos Tracker - Direcionamentos de Design</title>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --secondary: #0F172A;
+            --accent: #F59E0B;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --border: #E2E8F0;
+            --text: #1E293B;
+            --text-muted: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #888;
+        }
+
+        .direction-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .direction-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #222;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .direction-btn:hover {
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .direction-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .direction-content {
+            display: none;
+        }
+
+        .direction-content.active {
+            display: block;
+        }
+
+        .direction-info {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #252525;
+            border-radius: 12px;
+        }
+
+        .direction-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .direction-info .philosophy {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .direction-info .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .direction-info .tag {
+            padding: 0.25rem 0.75rem;
+            background: #333;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* Phone Frame */
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border: 12px solid #333;
+            border-radius: 40px;
+            background: var(--bg);
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: #333;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            color: var(--text);
+        }
+
+        /* App Styles - Base */
+        .app-header {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-header h1 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .app-header .streak {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+        }
+
+        .app-content {
+            padding: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Topic Card */
+        .topic-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-title {
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        .topic-badge {
+            font-size: 0.625rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 999px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .topic-badge.alta {
+            background: var(--error);
+        }
+
+        .topic-badge.media {
+            background: var(--warning);
+        }
+
+        .topic-badge.baixa {
+            background: var(--success);
+        }
+
+        .topic-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .topic-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 3px;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .topic-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-primary-sm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-outline-sm {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Direction 2: Dark Mode */
+        .direction-2 .phone-frame {
+            border-color: #000;
+        }
+
+        .direction-2 .phone-screen {
+            background: #0f0f0f;
+        }
+
+        .direction-2 .stat-card,
+        .direction-2 .topic-card,
+        .direction-2 .bottom-nav {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        .direction-2 .stat-value {
+            color: #60a5fa;
+        }
+
+        .direction-2 .app-header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        }
+
+        /* Direction 3: Card Based */
+        .direction-3 .app-content {
+            padding: 0.5rem;
+        }
+
+        .direction-3 .topic-card {
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .direction-3 .topic-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .direction-3 .topic-info {
+            flex: 1;
+        }
+
+        .direction-3 .topic-actions {
+            flex-direction: column;
+        }
+
+        /* Direction 4: Dense */
+        .direction-4 .stats-row {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.25rem;
+        }
+
+        .direction-4 .stat-card {
+            padding: 0.5rem 0.25rem;
+        }
+
+        .direction-4 .stat-value {
+            font-size: 1rem;
+        }
+
+        .direction-4 .topic-card {
+            padding: 0.75rem;
+        }
+
+        .direction-4 .topic-title {
+            font-size: 0.8125rem;
+        }
+
+        /* Direction 5: Minimal */
+        .direction-5 .app-header {
+            background: transparent;
+            color: var(--text);
+            padding: 1rem;
+        }
+
+        .direction-5 .app-content {
+            padding-top: 0.5rem;
+        }
+
+        .direction-5 .stat-card {
+            box-shadow: none;
+            border: 1px solid var(--border);
+        }
+
+        .direction-5 .topic-card {
+            box-shadow: none;
+            border: 1px solid var(--border);
+        }
+
+        /* Direction 6: Gamified */
+        .direction-6 .app-header {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+        }
+
+        .direction-6 .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .direction-6 .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .direction-6 .topic-badge {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+        }
+
+        /* Compare Mode */
+        .compare-container {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .compare-container.active {
+            display: grid;
+        }
+
+        .compare-toggle {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .compare-toggle button {
+            padding: 0.75rem 1.5rem;
+            background: #333;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .compare-toggle button.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .compare-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h1>🎨 Direcionamentos de Design</h1>
+            <p>Explore diferentes abordagens visuais para o Estudos Tracker</p>
+        </div>
+
+        <div class="direction-nav">
+            <button class="direction-btn active" onclick="showDirection(1)">1. Dashboard Clássico</button>
+            <button class="direction-btn" onclick="showDirection(2)">2. Dark Mode</button>
+            <button class="direction-btn" onclick="showDirection(3)">3. Cards com Ícones</button>
+            <button class="direction-btn" onclick="showDirection(4)">4. Visual Denso</button>
+            <button class="direction-btn" onclick="showDirection(5)">5. Minimalista</button>
+            <button class="direction-btn" onclick="showDirection(6)">6. Gamificado</button>
+        </div>
+
+        <!-- Direction 1: Classic Dashboard -->
+        <div class="direction-content direction-1 active">
+            <div class="direction-info">
+                <h2>1. Dashboard Clássico</h2>
+                <p class="philosophy">Abordagem tradicional com navegação clara e visual familhar. Ideal para usuários
+                    que preferem interfaces conhecidas.</p>
+                <div class="tags">
+                    <span class="tag">Tradicional</span>
+                    <span class="tag">Claro</span>
+                    <span class="tag">Funcional</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Estudos Tracker</h1>
+                        <div class="streak">🔥 7</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Progresso</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1.2k</div>
+                                <div class="stat-label">Pontos</div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem; color: var(--text);">Matérias Recentes
+                        </h3>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Gramática</span>
+                                <span class="topic-badge">Alta</span>
+                            </div>
+                            <div class="topic-desc">Regência verbal e concordância</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%"></div>
+                                </div>
+                                <span class="progress-text">80% • 18h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Estudar</button>
+                                <button class="btn-sm btn-outline-sm">✏️</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Interpretação</span>
+                                <span class="topic-badge media">Média</span>
+                            </div>
+                            <div class="topic-desc">Técnicas de leitura e análise</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                                <span class="progress-text">40% • 8h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Estudar</button>
+                                <button class="btn-sm btn-outline-sm">✏️</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📚</span>
+                            <span>Matérias</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">⏱️</span>
+                            <span>Cronômetro</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">🏆</span>
+                            <span>Conquistas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 2: Dark Mode -->
+        <div class="direction-content direction-2">
+            <div class="direction-info">
+                <h2>2. Dark Mode</h2>
+                <p class="philosophy">Interface escura que reduz o cansaço visual e é ideal para uso noturno ou em
+                    ambientes com baixa luminosidade.</p>
+                <div class="tags">
+                    <span class="tag">Moderno</span>
+                    <span class="tag">Elegante</span>
+                    <span class="tag">Low-light</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Estudos Tracker</h1>
+                        <div class="streak">🔥 7</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Progresso</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1.2k</div>
+                                <div class="stat-label">Pontos</div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem; color: #aaa;">Matérias Recentes</h3>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Gramática</span>
+                                <span class="topic-badge">Alta</span>
+                            </div>
+                            <div class="topic-desc" style="color: #666;">Regência verbal e concordância</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar" style="background: #333;">
+                                    <div class="progress-fill" style="width: 80%"></div>
+                                </div>
+                                <span class="progress-text" style="color: #666;">80% • 18h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Estudar</button>
+                                <button class="btn-sm btn-outline-sm">✏️</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Interpretação</span>
+                                <span class="topic-badge media">Média</span>
+                            </div>
+                            <div class="topic-desc" style="color: #666;">Técnicas de leitura e análise</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar" style="background: #333;">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                                <span class="progress-text" style="color: #666;">40% • 8h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Estudar</button>
+                                <button class="btn-sm btn-outline-sm">✏️</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📚</span>
+                            <span>Matérias</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">⏱️</span>
+                            <span>Cronômetro</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">🏆</span>
+                            <span>Conquistas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 3: Card with Icons -->
+        <div class="direction-content direction-3">
+            <div class="direction-info">
+                <h2>3. Cards com Ícones</h2>
+                <p class="philosophy">Visual mais rico e visualmente atraente com ícones coloridos que diferenciam as
+                    matérias rapidamente.</p>
+                <div class="tags">
+                    <span class="tag">Visual</span>
+                    <span class="tag">Colorido</span>
+                    <span class="tag">Memorável</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Estudos Tracker</h1>
+                        <div class="streak">🔥 7</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Progresso</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1.2k</div>
+                                <div class="stat-label">Pontos</div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem;">Matérias</h3>
+
+                        <div class="topic-card">
+                            <div class="topic-icon">📖</div>
+                            <div class="topic-info">
+                                <div class="topic-header">
+                                    <span class="topic-title">Gramática</span>
+                                </div>
+                                <div class="topic-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 80%"></div>
+                                    </div>
+                                    <span class="progress-text">80%</span>
+                                </div>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">📝
+                            </div>
+                            <div class="topic-info">
+                                <div class="topic-header">
+                                    <span class="topic-title">Interpretação</span>
+                                </div>
+                                <div class="topic-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 40%; background: #10b981;"></div>
+                                    </div>
+                                    <span class="progress-text">40%</span>
+                                </div>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">✍️
+                            </div>
+                            <div class="topic-info">
+                                <div class="topic-header">
+                                    <span class="topic-title">Redação</span>
+                                </div>
+                                <div class="topic-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%; background: #f59e0b;"></div>
+                                    </div>
+                                    <span class="progress-text">60%</span>
+                                </div>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📚</span>
+                            <span>Matérias</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">⏱️</span>
+                            <span>Cronômetro</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">🏆</span>
+                            <span>Conquistas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 4: Dense -->
+        <div class="direction-content direction-4">
+            <div class="direction-info">
+                <h2>4. Visual Denso</h2>
+                <p class="philosophy">Mais informações por tela. Ideal para power users que querem ver tudo de uma vez
+                    sem precisar rolar muito.</p>
+                <div class="tags">
+                    <span class="tag">Denso</span>
+                    <span class="tag">Informativo</span>
+                    <span class="tag">Power User</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Estudos Tracker</h1>
+                        <div class="streak">🔥 7</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Prog.</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1.2k</div>
+                                <div class="stat-label">Pts</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Mat.</div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 0.75rem; margin-bottom: 0.5rem; color: var(--text-muted);">MATÉRIAS • HOJE
+                        </h3>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Gramática</span>
+                                <span class="topic-badge" style="font-size: 0.5rem;">ALT</span>
+                            </div>
+                            <div class="topic-progress" style="margin-bottom: 0;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%"></div>
+                                </div>
+                                <span class="progress-text">80%</span>
+                            </div>
+                            <div class="topic-actions" style="margin-top: 0.5rem;">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                                <button class="btn-sm btn-outline-sm">📊</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Interpretação</span>
+                                <span class="topic-badge media" style="font-size: 0.5rem;">MED</span>
+                            </div>
+                            <div class="topic-progress" style="margin-bottom: 0;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                                <span class="progress-text">40%</span>
+                            </div>
+                            <div class="topic-actions" style="margin-top: 0.5rem;">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                                <button class="btn-sm btn-outline-sm">📊</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Redação</span>
+                                <span class="topic-badge baixa" style="font-size: 0.5rem;">BAIX</span>
+                            </div>
+                            <div class="topic-progress" style="margin-bottom: 0;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                                <span class="progress-text">60%</span>
+                            </div>
+                            <div class="topic-actions" style="margin-top: 0.5rem;">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                                <button class="btn-sm btn-outline-sm">📊</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Vocabulário</span>
+                                <span class="topic-badge" style="font-size: 0.5rem;">ALT</span>
+                            </div>
+                            <div class="topic-progress" style="margin-bottom: 0;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 25%"></div>
+                                </div>
+                                <span class="progress-text">25%</span>
+                            </div>
+                            <div class="topic-actions" style="margin-top: 0.5rem;">
+                                <button class="btn-sm btn-primary-sm">▶</button>
+                                <button class="btn-sm btn-outline-sm">📊</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">📊</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📚</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">⏱️</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📅</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">🏆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 5: Minimal -->
+        <div class="direction-content direction-5">
+            <div class="direction-info">
+                <h2>5. Minimalista</h2>
+                <p class="philosophy">Design limpo com foco no essencial. Somente o necessário, sem distrações visuais
+                    desnecessárias.</p>
+                <div class="tags">
+                    <span class="tag">Limpo</span>
+                    <span class="tag">Focado</span>
+                    <span class="tag">Moderno</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Olá! 👋</h1>
+                        <div style="width: 32px; height: 32px; background: #ddd; border-radius: 50%;"></div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Prog</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">7d</div>
+                                <div class="stat-label">Streak</div>
+                            </div>
+                        </div>
+
+                        <div class="topic-card" style="margin-bottom: 0.5rem;">
+                            <span class="topic-title">Gramática</span>
+                            <div class="topic-progress" style="margin-top: 0.5rem;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-card" style="margin-bottom: 0.5rem;">
+                            <span class="topic-title">Interpretação</span>
+                            <div class="topic-progress" style="margin-top: 0.5rem;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-card" style="margin-bottom: 0.5rem;">
+                            <span class="topic-title">Redação</span>
+                            <div class="topic-progress" style="margin-top: 0.5rem;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">●</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">○</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">○</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">○</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 6: Gamified -->
+        <div class="direction-content direction-6">
+            <div class="direction-info">
+                <h2>6. Gamificado</h2>
+                <p class="philosophy">Visual vibrante com elementos de gamificação visuais. Transforma o estudo em uma
+                    experiência divertida e recompensadora.</p>
+                <div class="tags">
+                    <span class="tag">Vibrante</span>
+                    <span class="tag">Motivador</span>
+                    <span class="tag">Engajante</span>
+                </div>
+            </div>
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="app-header">
+                        <h1>Estudos Tracker</h1>
+                        <div class="streak">🔥 7 dias!</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-value">47h</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Progresso</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">⭐ 5</div>
+                                <div class="stat-label">Nível</div>
+                            </div>
+                        </div>
+
+                        <h3
+                            style="font-size: 0.875rem; margin-bottom: 0.75rem; background: linear-gradient(90deg, #7c3aed, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">
+                            Continue assim! 🚀</h3>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Gramática</span>
+                                <span class="topic-badge">⭐ 80%</span>
+                            </div>
+                            <div class="topic-desc">Regência verbal e concordância</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"
+                                        style="width: 80%; background: linear-gradient(90deg, #7c3aed, #ec4899);"></div>
+                                </div>
+                                <span class="progress-text">18h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Começar</button>
+                            </div>
+                        </div>
+
+                        <div class="topic-card">
+                            <div class="topic-header">
+                                <span class="topic-title">Interpretação</span>
+                                <span class="topic-badge media">⭐ 40%</span>
+                            </div>
+                            <div class="topic-desc">Técnicas de leitura e análise</div>
+                            <div class="topic-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"
+                                        style="width: 40%; background: linear-gradient(90deg, #7c3aed, #ec4899);"></div>
+                                </div>
+                                <span class="progress-text">8h</span>
+                            </div>
+                            <div class="topic-actions">
+                                <button class="btn-sm btn-primary-sm">▶ Começar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <span class="nav-icon">🏠</span>
+                            <span>Início</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">📚</span>
+                            <span>Matérias</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">⏱️</span>
+                            <span>Cronômetro</span>
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">🏆</span>
+                            <span>Conquistas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="compare-toggle">
+            <button onclick="toggleCompare()">👁️ Comparar Todos</button>
+        </div>
+
+        <div class="compare-container" id="compareContainer">
+            <!-- All directions shown side by side in compare mode -->
+        </div>
+    </div>
+
+    <script>
+        function showDirection(num) {
+            document.querySelectorAll('.direction-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.direction-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.querySelector(`.direction-${num}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function toggleCompare() {
+            const container = document.getElementById('compareContainer');
+            container.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
