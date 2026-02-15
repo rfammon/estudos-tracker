@@ -3,21 +3,20 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import App from './App'
+import { AuthProvider } from './hooks/useAuth'
 import './index.css'
 
-// Register service worker for PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch((error) => {
-            console.log('SW registration failed: ', error);
-        });
-    });
-}
+// NOTE: Service Worker registration has been removed to prevent
+// cached stale authentication states that cause infinite login loops.
+// All authentication state is now managed by Supabase's onAuthStateChange
+// as the single source of truth.
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <AuthProvider>
+                <App />
+            </AuthProvider>
             <Toaster
                 position="top-right"
                 toastOptions={{

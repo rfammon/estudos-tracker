@@ -17,13 +17,13 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
     if (!entry) {
         return (
             <div
-                className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-200 dark:border-gray-700"
+                className="bg-muted/10 rounded-[2rem] p-8 border border-border/10 text-center"
                 role="region"
                 aria-label="Sua posição no ranking"
             >
-                <div className="text-center text-gray-500 dark:text-gray-400">
-                    <p>Jogue para aparecer no ranking!</p>
-                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">
+                    Jogue para aparecer no ranking!
+                </p>
             </div>
         )
     }
@@ -43,19 +43,19 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
     }
 
     const getRankBadgeStyles = (): string => {
-        if (entry.rank === 1) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700'
-        if (entry.rank === 2) return 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-        if (entry.rank === 3) return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700'
-        return 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border-primary-200 dark:border-primary-700'
+        if (entry.rank === 1) return 'bg-yellow-100/50 text-yellow-700 border-yellow-200/50'
+        if (entry.rank === 2) return 'bg-slate-100/50 text-slate-700 border-slate-200/50'
+        if (entry.rank === 3) return 'bg-amber-100/50 text-amber-700 border-amber-200/50'
+        return 'bg-primary/10 text-primary border-primary/20'
     }
 
     return (
         <div
             className={`
-        rounded-xl p-4 border-2 transition-all duration-300
+        rounded-[2rem] p-6 border transition-all duration-500 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]
         ${isTopThree
-                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/50 dark:from-primary-900/20 dark:to-primary-800/10 border-primary-300 dark:border-primary-700'
-                    : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'
+                    ? 'bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 ring-1 ring-primary/5'
+                    : 'bg-white/80 dark:bg-white/5 border-border/10 backdrop-blur-xl'
                 }
       `}
             role="region"
@@ -65,14 +65,14 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
                 {/* Rank Badge */}
                 <div
                     className={`
-            flex flex-col items-center justify-center w-16 h-16 rounded-xl border-2
+            flex flex-col items-center justify-center w-20 h-20 rounded-2xl border transition-transform duration-500 group-hover:scale-110
             ${getRankBadgeStyles()}
           `}
                 >
-                    <span className="text-2xl font-bold">
+                    <span className="text-3xl font-black tracking-tighter shrink-0">
                         {entry.rank <= 3 ? ['🥇', '🥈', '🥉'][entry.rank - 1] : `#${entry.rank}`}
                     </span>
-                    <span className="text-xs font-medium opacity-75">
+                    <span className="text-[8px] font-black uppercase tracking-widest mt-1 opacity-60">
                         {entry.rank <= 3 ? 'Top 3' : 'Posição'}
                     </span>
                 </div>
@@ -80,14 +80,14 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
                 {/* User Info */}
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                        <h3 className="font-black text-xl tracking-tighter text-foreground truncate">
                             {entry.userName}
                         </h3>
-                        <span className="text-sm">{CATEGORY_CONFIGS[category].icon}</span>
+                        <span className="text-base animate-bounce">{CATEGORY_CONFIGS[category].icon}</span>
                     </div>
 
-                    <div className="flex items-center gap-3 text-sm">
-                        <span className="font-medium text-primary-600 dark:text-primary-400">
+                    <div className="flex items-center gap-3">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
                             {formatScore(entry.score, category)}
                         </span>
 
@@ -108,14 +108,14 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-                            <span>Percentil</span>
+                    <div className="mt-4">
+                        <div className="flex items-center justify-between text-[8px] font-black uppercase tracking-widest text-muted-foreground/60 mb-2">
+                            <span>Percentil de Nível</span>
                             <span>{percentile}%</span>
                         </div>
-                        <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-muted/20 rounded-full overflow-hidden p-[2px]">
                             <div
-                                className="h-full bg-primary-500 rounded-full transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-primary to-blue-400 rounded-full transition-all duration-1000 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
                                 style={{ width: `${percentile}%` }}
                                 role="progressbar"
                                 aria-valuenow={percentile}
@@ -128,21 +128,21 @@ export const LeaderboardUserCard: React.FC<LeaderboardUserCardProps> = ({
 
                 {/* Message */}
                 <div className="hidden sm:block text-right">
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                    <span className="text-xs font-black uppercase tracking-widest text-foreground/80">
                         {getRankMessage()}
                     </span>
-                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                        de {totalParticipants} participantes
+                    <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-tight mt-1">
+                        de {totalParticipants} alunos
                     </p>
                 </div>
             </div>
 
             {/* Mobile Message */}
-            <div className="sm:hidden mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+            <div className="sm:hidden mt-4 pt-4 border-t border-border/10 flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-widest text-foreground/80">
                     {getRankMessage()}
                 </span>
-                <span className="text-xs text-gray-400 dark:text-gray-500">
+                <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest">
                     {PERIOD_CONFIGS[period].name} • {CATEGORY_CONFIGS[category].name}
                 </span>
             </div>

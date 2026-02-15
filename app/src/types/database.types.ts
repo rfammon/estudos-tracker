@@ -234,6 +234,205 @@ export type Database = {
                     },
                 ]
             }
+            study_plans: {
+                Row: {
+                    id: string
+                    name: string
+                    description: string | null
+                    total_weeks: number
+                    daily_goal_minutes: number | null
+                    is_active: boolean | null
+                    created_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    name: string
+                    description?: string | null
+                    total_weeks?: number
+                    daily_goal_minutes?: number | null
+                    is_active?: boolean | null
+                    created_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    name?: string
+                    description?: string | null
+                    total_weeks?: number
+                    daily_goal_minutes?: number | null
+                    is_active?: boolean | null
+                    created_at?: string | null
+                }
+                Relationships: []
+            }
+            plan_months: {
+                Row: {
+                    id: string
+                    plan_id: string
+                    month_number: number
+                    title: string
+                    objective: string
+                    created_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    plan_id: string
+                    month_number: number
+                    title: string
+                    objective: string
+                    created_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    plan_id?: string
+                    month_number?: number
+                    title?: string
+                    objective?: string
+                    created_at?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: "plan_months_plan_id_fkey"
+                        columns: ["plan_id"]
+                        isOneToOne: false
+                        referencedRelation: "study_plans"
+                        referencedColumns: ["id"]
+                    },
+                ]
+            }
+            plan_weeks: {
+                Row: {
+                    id: string
+                    plan_id: string
+                    month_id: string
+                    week_number: number
+                    title: string
+                    created_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    plan_id: string
+                    month_id: string
+                    week_number: number
+                    title: string
+                    created_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    plan_id?: string
+                    month_id?: string
+                    week_number?: number
+                    title?: string
+                    created_at?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: "plan_weeks_plan_id_fkey"
+                        columns: ["plan_id"]
+                        isOneToOne: false
+                        referencedRelation: "study_plans"
+                        referencedColumns: ["id"]
+                    },
+                    {
+                        foreignKeyName: "plan_weeks_month_id_fkey"
+                        columns: ["month_id"]
+                        isOneToOne: false
+                        referencedRelation: "plan_months"
+                        referencedColumns: ["id"]
+                    },
+                ]
+            }
+            study_topics: {
+                Row: {
+                    id: string
+                    week_id: string
+                    title: string
+                    description: string | null
+                    content: string | null
+                    order_index: number | null
+                    estimated_minutes: number | null
+                    created_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    week_id: string
+                    title: string
+                    description?: string | null
+                    content?: string | null
+                    order_index?: number | null
+                    estimated_minutes?: number | null
+                    created_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    week_id?: string
+                    title?: string
+                    description?: string | null
+                    content?: string | null
+                    order_index?: number | null
+                    estimated_minutes?: number | null
+                    created_at?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: "study_topics_week_id_fkey"
+                        columns: ["week_id"]
+                        isOneToOne: false
+                        referencedRelation: "plan_weeks"
+                        referencedColumns: ["id"]
+                    },
+                ]
+            }
+            user_topic_progress: {
+                Row: {
+                    id: string
+                    user_id: string
+                    topic_id: string
+                    status: string | null
+                    started_at: string | null
+                    completed_at: string | null
+                    notes: string | null
+                    created_at: string | null
+                    updated_at: string | null
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    topic_id: string
+                    status?: string | null
+                    started_at?: string | null
+                    completed_at?: string | null
+                    notes?: string | null
+                    created_at?: string | null
+                    updated_at?: string | null
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    topic_id?: string
+                    status?: string | null
+                    started_at?: string | null
+                    completed_at?: string | null
+                    notes?: string | null
+                    created_at?: string | null
+                    updated_at?: string | null
+                }
+                Relationships: [
+                    {
+                        foreignKeyName: "user_topic_progress_user_id_fkey"
+                        columns: ["user_id"]
+                        isOneToOne: false
+                        referencedRelation: "profiles"
+                        referencedColumns: ["id"]
+                    },
+                    {
+                        foreignKeyName: "user_topic_progress_topic_id_fkey"
+                        columns: ["topic_id"]
+                        isOneToOne: false
+                        referencedRelation: "study_topics"
+                        referencedColumns: ["id"]
+                    },
+                ]
+            }
         }
         Views: {
             [_ in never]: never
@@ -393,3 +592,41 @@ export type UserAchievementUpdate = TablesUpdate<'user_achievements'>
 export type LeaderboardEntry = Tables<'leaderboard_entries'>
 export type LeaderboardEntryInsert = TablesInsert<'leaderboard_entries'>
 export type LeaderboardEntryUpdate = TablesUpdate<'leaderboard_entries'>
+
+// Portuguese Study Plan Types
+export type StudyPlan = Tables<'study_plans'>
+export type StudyPlanInsert = TablesInsert<'study_plans'>
+export type StudyPlanUpdate = TablesUpdate<'study_plans'>
+
+export type PlanMonth = Tables<'plan_months'>
+export type PlanMonthInsert = TablesInsert<'plan_months'>
+export type PlanMonthUpdate = TablesUpdate<'plan_months'>
+
+export type PlanWeek = Tables<'plan_weeks'>
+export type PlanWeekInsert = TablesInsert<'plan_weeks'>
+export type PlanWeekUpdate = TablesUpdate<'plan_weeks'>
+
+export type StudyTopic = Tables<'study_topics'>
+export type StudyTopicInsert = TablesInsert<'study_topics'>
+export type StudyTopicUpdate = TablesUpdate<'study_topics'>
+
+export type UserTopicProgress = Tables<'user_topic_progress'>
+export type UserTopicProgressInsert = TablesInsert<'user_topic_progress'>
+export type UserTopicProgressUpdate = TablesUpdate<'user_topic_progress'>
+
+// Extended types with nested relationships
+export interface StudyTopicWithProgress extends StudyTopic {
+    progress?: UserTopicProgress | null
+}
+
+export interface PlanWeekWithTopics extends PlanWeek {
+    topics: StudyTopicWithProgress[]
+}
+
+export interface PlanMonthWithWeeks extends PlanMonth {
+    weeks: PlanWeekWithTopics[]
+}
+
+export interface StudyPlanComplete extends StudyPlan {
+    months: PlanMonthWithWeeks[]
+}

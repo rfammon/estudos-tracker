@@ -66,11 +66,11 @@ export const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
     return (
         <div
             className={`
-        flex items-center gap-3 p-3 rounded-lg transition-all duration-200
-        ${isTopThree ? getRankBg(entry.rank) : 'bg-white dark:bg-gray-800'}
-        ${isHighlighted || isCurrentUser ? 'ring-2 ring-primary-500 ring-opacity-50' : ''}
-        ${isCurrentUser ? 'bg-primary-50 dark:bg-primary-900/20' : ''}
-        hover:shadow-md
+        flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 border
+        ${isTopThree ? getRankBg(entry.rank) : 'bg-white/40 dark:bg-white/5 border-border/5'}
+        ${isHighlighted || isCurrentUser ? 'ring-2 ring-primary/40 border-primary/20 shadow-lg shadow-primary/5 scale-[1.01]' : 'border-transparent'}
+        ${isCurrentUser && !isTopThree ? 'bg-primary/5' : ''}
+        hover:shadow-xl hover:scale-[1.02] hover:bg-white/80 dark:hover:bg-white/10 group
       `}
             role="listitem"
             aria-label={`${entry.rank}º lugar: ${entry.userName} com ${formatScore(entry.score, category)}`}
@@ -78,14 +78,14 @@ export const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
             {/* Rank */}
             <div
                 className={`
-          flex items-center justify-center w-10 h-10 rounded-full font-bold text-lg
-          ${isTopThree ? getRankColor(entry.rank) : 'text-gray-500 dark:text-gray-400'}
-          ${isTopThree ? 'bg-white dark:bg-gray-700 shadow-sm' : 'bg-gray-100 dark:bg-gray-700'}
+          flex items-center justify-center w-12 h-12 rounded-2xl font-black text-xl tracking-tighter transition-transform duration-500 group-hover:rotate-12
+          ${isTopThree ? getRankColor(entry.rank) : 'text-muted-foreground/40'}
+          ${isTopThree ? 'bg-white/80 dark:bg-white/10 shadow-sm border border-white/20' : 'bg-muted/10'}
         `}
                 aria-hidden="true"
             >
                 {showRankBadge && isTopThree ? (
-                    <span className="text-xl">{getMedalEmoji(entry.rank)}</span>
+                    <span className="text-2xl drop-shadow-md">{getMedalEmoji(entry.rank)}</span>
                 ) : (
                     <span>{entry.rank}</span>
                 )}
@@ -94,10 +94,10 @@ export const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
             {/* Avatar */}
             <div
                 className={`
-          flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold
+          flex items-center justify-center w-12 h-12 rounded-2xl text-xs font-black uppercase tracking-tighter
           ${isCurrentUser
-                        ? 'bg-primary-500 text-white'
-                        : 'bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 text-gray-700 dark:text-gray-200'
+                        ? 'bg-primary text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]'
+                        : 'bg-gradient-to-br from-muted/20 to-muted/40 text-muted-foreground border border-border/5'
                     }
         `}
                 aria-hidden="true"
@@ -108,16 +108,16 @@ export const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
             {/* User Info */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                    <span className={`font-medium truncate ${isCurrentUser ? 'text-primary-700 dark:text-primary-300' : 'text-gray-900 dark:text-white'}`}>
+                    <span className={`font-black text-base tracking-tight truncate ${isCurrentUser ? 'text-primary' : 'text-foreground'}`}>
                         {entry.userName}
                     </span>
                     {isCurrentUser && (
-                        <span className="px-1.5 py-0.5 text-xs bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-300 rounded">
+                        <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest bg-primary text-white rounded-full">
                             Você
                         </span>
                     )}
                 </div>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-[10px] font-black text-muted-foreground/60 uppercase tracking-widest">
                     {formatScore(entry.score, category)}
                 </span>
             </div>

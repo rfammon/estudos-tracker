@@ -226,14 +226,15 @@ export const useSettingsStore = create<SettingsState>()(
             // Ações de conta
             logout: async () => {
                 await new Promise((resolve) => setTimeout(resolve, 500));
-                // Limpar dados sensíveis
-                localStorage.clear();
+                // Reset user-specific profile but keep global settings (theme, etc)
+                set({ userProfile: defaultUserProfile });
                 window.location.href = '/login';
             },
 
             deleteAccount: async () => {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
-                localStorage.clear();
+                // Reset profile
+                set({ userProfile: defaultUserProfile });
                 window.location.href = '/';
             },
         }),

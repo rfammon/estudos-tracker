@@ -45,3 +45,10 @@ export { usePresence } from './usePresence'
 // Realtime notifications
 export { useRealtimeNotifications } from './useRealtimeNotifications'
 export type { RealtimeNotification } from './useRealtimeNotifications'
+
+// Study Plans
+export { useStudyPlans } from './useStudyPlans'
+
+// Portuguese Study Plan
+export { usePortuguesePlan } from './usePortuguesePlan'
+export type { UsePortuguesePlanReturn } from './usePortuguesePlan'

@@ -67,11 +67,11 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             {!compact && (
                 <div className="flex items-center justify-between">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                            <span className="text-2xl">🏆</span>
+                        <h2 className="text-3xl font-black tracking-tighter text-foreground italic flex items-center gap-2">
+                            <span className="not-italic">🏆</span>
                             Ranking
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] mt-1">
                             {CATEGORY_CONFIGS[activeCategory].description}
                         </p>
                     </div>
@@ -105,7 +105,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             {/* Top 3 Podium */}
             {topThree.length > 0 && (
                 <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <h3 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] italic">
                         Pódio
                     </h3>
                     <div
@@ -158,7 +158,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             {/* Rest of the Leaderboard */}
             {restEntries.length > 0 && (
                 <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <h3 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] italic">
                         Continuação
                     </h3>
                     <div
@@ -212,7 +212,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
             {/* Footer Info */}
             {!compact && (
-                <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center justify-between text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest pt-4 border-t border-border/10">
                     <span>
                         {leaderboard.totalParticipants} participantes
                     </span>

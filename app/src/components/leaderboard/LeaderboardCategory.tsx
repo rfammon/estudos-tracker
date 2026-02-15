@@ -19,21 +19,20 @@ export const LeaderboardCategory: React.FC<LeaderboardCategoryProps> = ({
 
         if (isActive) {
             return `
-        bg-white dark:bg-gray-800 shadow-md border-primary-500 dark:border-primary-400
-        text-primary-600 dark:text-primary-300
+        bg-white/50 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-primary/40
+        text-primary scale-105
       `
         }
 
         return `
-      bg-transparent border-transparent
-      text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300
-      hover:bg-gray-50 dark:hover:bg-gray-700/50
+      bg-muted/10 border-border/10
+      text-muted-foreground hover:text-foreground hover:bg-muted/20
     `
     }
 
     const containerStyles = layout === 'grid'
-        ? 'grid grid-cols-3 sm:grid-cols-5 gap-2'
-        : 'flex flex-wrap gap-2'
+        ? 'grid grid-cols-2 sm:grid-cols-5 gap-3'
+        : 'flex flex-wrap gap-2.5'
 
     return (
         <div
@@ -51,18 +50,18 @@ export const LeaderboardCategory: React.FC<LeaderboardCategoryProps> = ({
                         onClick={() => onCategoryChange(category)}
                         aria-pressed={isActive}
                         className={`
-              flex items-center gap-2 px-3 py-2 rounded-lg border-2 
-              transition-all duration-200 text-sm font-medium
-              focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
-              dark:focus:ring-offset-gray-800
+              flex flex-col sm:flex-row items-center justify-center gap-2 px-3 py-3 rounded-xl border
+              transition-all duration-300 text-[10px] font-black uppercase tracking-widest
+              focus:outline-none focus:ring-2 focus:ring-primary/50
               ${getCategoryStyles(category)}
             `}
                         title={config.description}
                     >
-                        <span className="text-lg" aria-hidden="true">
+                        <span className="text-xl" aria-hidden="true">
                             {config.icon}
                         </span>
                         <span className="hidden sm:inline">{config.nameShort}</span>
+                        <span className="sm:hidden text-[8px] opacity-70 mt-0.5">{config.nameShort}</span>
                     </button>
                 )
             })}

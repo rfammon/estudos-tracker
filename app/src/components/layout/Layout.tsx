@@ -17,8 +17,11 @@ import {
     History as HistoryIcon,
     Trophy,
     BarChart3,
+    LogOut,
+    ClipboardList,
     type LucideIcon
 } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 import { useSettingsStore } from '@/store';
 import { SkipLinks } from '@/components/accessibility';
 import {
@@ -47,6 +50,7 @@ const navItems: NavItem[] = [
     { to: '/topics', icon: BookOpen, label: 'Matérias', description: 'Gerenciar matérias de estudo' },
     { to: '/timer', icon: Timer, label: 'Cronômetro', description: 'Timer de sessões de estudo' },
     { to: '/plan', icon: Calendar, label: 'Plano', description: 'Plano de estudos' },
+    { to: '/plano-portugues', icon: ClipboardList, label: 'Português', description: 'Plano de estudos de Português' },
     { to: '/history', icon: HistoryIcon, label: 'Histórico', description: 'Histórico de sessões' },
     { to: '/evolution', icon: TrendingUp, label: 'Evolução', description: 'Estatísticas e progresso' },
     { to: '/analytics', icon: BarChart3, label: 'Analytics', description: 'Dashboard de analytics' },
@@ -56,6 +60,7 @@ const navItems: NavItem[] = [
 export function Layout({ children }: LayoutProps) {
     const { theme, toggleTheme } = useThemeStore();
     const { userProfile } = useSettingsStore();
+    const { signOut } = useAuth();
     const location = useLocation();
     const handlePageVisit = useHiddenAchievementsStore((state) => state.handlePageVisit);
 
@@ -71,6 +76,7 @@ export function Layout({ children }: LayoutProps) {
             '/topics': 'topics',
             '/timer': 'timer',
             '/plan': 'plan',
+            '/plano-portugues': 'plano-portugues',
             '/history': 'history',
             '/evolution': 'evolution',
             '/analytics': 'analytics',
@@ -262,6 +268,17 @@ export function Layout({ children }: LayoutProps) {
                                     )}
                                 </div>
                             </NavLink>
+
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={signOut}
+                                className="h-9 w-9 flex items-center justify-center hover:bg-red-500/10 rounded-full transition-all group"
+                                title="Sair"
+                                aria-label="Sair da conta"
+                            >
+                                <LogOut className="h-4 w-4 text-muted-foreground group-hover:text-red-500 transition-colors" />
+                            </Button>
                         </div>
                     </div>
                 </header>

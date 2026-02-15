@@ -9,6 +9,7 @@ import { Plan } from '@/pages/Plan';
 import { SessionSummary } from '@/pages/SessionSummary';
 import { Skills } from '@/pages/Skills';
 import { Auth } from '@/pages/Auth';
+import { PortuguesePlan } from '@/pages/PortuguesePlan';
 import { SettingsPage } from '@/components/settings/SettingsPage';
 import { Layout } from '@/components/layout/Layout';
 import { PWAInstallBanner } from '@/components/pwa/PWAInstallBanner';
@@ -18,7 +19,7 @@ import { useOnboardingStore } from '@/store';
 import { useApplySettings } from '@/hooks/useSettings';
 import { useRealtimeSync } from '@/hooks/useRealtimeSync';
 import { SecretPage } from '@/components/easter-eggs';
-import { AuthProvider, useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 function AppContent() {
     // Apply settings globally
@@ -83,6 +84,7 @@ function AppContent() {
                     <Route path="/skills" element={<Skills />} />
                     <Route path="/session-summary" element={<SessionSummary />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/plano-portugues" element={<PortuguesePlan />} />
                     {/* Secret Easter Egg Route */}
                     <Route path="/easter-egg" element={<SecretPage />} />
                 </Routes>
@@ -94,11 +96,7 @@ function AppContent() {
 }
 
 function App() {
-    return (
-        <AuthProvider>
-            <AppContent />
-        </AuthProvider>
-    );
+    return <AppContent />;
 }
 
 export default App;

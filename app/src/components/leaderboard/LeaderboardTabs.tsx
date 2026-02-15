@@ -19,14 +19,13 @@ export const LeaderboardTabs: React.FC<LeaderboardTabsProps> = ({
 
         if (isActive) {
             return `
-        bg-primary-500 text-white shadow-md
-        dark:bg-primary-600
+        bg-primary/10 text-primary border border-primary/20 
+        shadow-[0_0_15px_rgba(37,99,235,0.1)] scale-105
       `
         }
 
         return `
-      bg-gray-100 text-gray-600 hover:bg-gray-200
-      dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600
+      bg-muted/30 text-muted-foreground hover:text-foreground border border-transparent hover:bg-muted/50
     `
     }
 
@@ -52,9 +51,8 @@ export const LeaderboardTabs: React.FC<LeaderboardTabsProps> = ({
                             tabIndex={isActive ? 0 : -1}
                             onClick={() => onPeriodChange(period)}
                             className={`
-                px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200
-                focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
-                dark:focus:ring-offset-gray-800
+                px-4 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-300
+                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                 ${getTabStyles(period)}
               `}
                         >
@@ -89,15 +87,15 @@ export const LeaderboardTabs: React.FC<LeaderboardTabsProps> = ({
             {/* Countdown Timer */}
             {showCountdown && activePeriod !== 'all-time' && (
                 <div
-                    className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+                    className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground/80 uppercase tracking-widest"
                     aria-live="polite"
                 >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-3.5 h-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>{formatTimeRemaining(PERIOD_CONFIGS[activePeriod].getEndDate())}</span>
-                    <span className="text-gray-400 dark:text-gray-500">•</span>
-                    <span className="text-xs">{PERIOD_CONFIGS[activePeriod].resetDescription}</span>
+                    <span className="opacity-30">•</span>
+                    <span className="text-[9px] lowercase font-medium italic">{PERIOD_CONFIGS[activePeriod].resetDescription}</span>
                 </div>
             )}
         </div>
